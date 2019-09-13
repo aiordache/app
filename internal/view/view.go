@@ -1,4 +1,4 @@
-package inspect
+package view
 
 import (
 	"fmt"
@@ -15,8 +15,8 @@ import (
 	units "github.com/docker/go-units"
 )
 
-// Inspect dumps the metadata of an app
-func Inspect(out io.Writer, app *types.App, argParameters map[string]string, imageMap map[string]bundle.Image) error {
+// View dumps the metadata of an app
+func View(out io.Writer, app *types.App, argParameters map[string]string, imageMap map[string]bundle.Image) error {
 	// Render the compose file
 	config, err := render.Render(app, argParameters, imageMap)
 	if err != nil {

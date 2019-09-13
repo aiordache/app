@@ -6,7 +6,6 @@ A tool to build and manage Docker Applications.
 Commands:
   bundle      Create a CNAB invocation image and `bundle.json` for the application
   init        Initialize Docker Application definition
-  inspect     Shows metadata, parameters and a summary of the Compose file for a given application
   install     Install an application
   list        List the installations and their last known installation result
   pull        Pull an application package from a registry
@@ -17,5 +16,6 @@ Commands:
   upgrade     Upgrade an installed application
   validate    Checks the rendered application is syntactically correct
   version     Print version information
+  view        Shows metadata, parameters and a summary of the Compose file for a given application
 
 Run 'docker app COMMAND --help' for more information on a command.

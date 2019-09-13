@@ -1,4 +1,4 @@
-package inspect
+package view
 
 import (
 	"bytes"
@@ -16,8 +16,8 @@ const (
 	composeYAML = `version: "3.1"`
 )
 
-func TestInspect(t *testing.T) {
-	dir := fs.NewDir(t, "inspect",
+func TestView(t *testing.T) {
+	dir := fs.NewDir(t, "view",
 		fs.WithDir("no-maintainers",
 			fs.WithFile(internal.ComposeFileName, composeYAML),
 			fs.WithFile(internal.MetadataFileName, `
@@ -119,13 +119,13 @@ text: hello`),
 		t.Run(testcase.name, func(t *testing.T) {
 			app, err := types.NewAppFromDefaultFiles(dir.Join(testcase.name))
 			assert.NilError(t, err)
-			// Inspect twice to ensure output is stable (e.g. sorting of maps)
+			// View twice to ensure output is stable (e.g. sorting of maps)
 			for i := 0; i < 2; i++ {
 				t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
 					outBuffer := new(bytes.Buffer)
-					err = Inspect(outBuffer, app, testcase.args, nil)
+					err = View(outBuffer, app, testcase.args, nil)
 					assert.NilError(t, err)
-					golden.Assert(t, outBuffer.String(), fmt.Sprintf("inspect-%s.golden", testcase.name))
+					golden.Assert(t, outBuffer.String(), fmt.Sprintf("view-%s.golden", testcase.name))
 				})
 			}
 

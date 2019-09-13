@@ -144,19 +144,19 @@ func TestDetectApp(t *testing.T) {
 	)
 	defer dir.Remove()
 
-	cmd.Command = dockerCli.Command("app", "inspect")
+	cmd.Command = dockerCli.Command("app", "view")
 	cmd.Dir = dir.Path()
 	icmd.RunCmd(cmd).Assert(t, icmd.Success)
 
-	cmd.Command = dockerCli.Command("app", "inspect")
+	cmd.Command = dockerCli.Command("app", "view")
 	cmd.Dir = dir.Join("attachments.dockerapp")
 	icmd.RunCmd(cmd).Assert(t, icmd.Success)
 
-	cmd.Command = dockerCli.Command("app", "inspect", ".")
+	cmd.Command = dockerCli.Command("app", "view", ".")
 	cmd.Dir = dir.Join("attachments.dockerapp")
 	icmd.RunCmd(cmd).Assert(t, icmd.Success)
 
-	cmd.Command = dockerCli.Command("app", "inspect")
+	cmd.Command = dockerCli.Command("app", "view")
 	cmd.Dir = dir.Join("render")
 	icmd.RunCmd(cmd).Assert(t, icmd.Expected{
 		ExitCode: 1,

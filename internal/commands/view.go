@@ -9,21 +9,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type inspectOptions struct {
+type viewOptions struct {
 	parametersOptions
 	registryOptions
 	pullOptions
 }
 
-func inspectCmd(dockerCli command.Cli) *cobra.Command {
-	var opts inspectOptions
+func viewCmd(dockerCli command.Cli) *cobra.Command {
+	var opts viewOptions
 	cmd := &cobra.Command{
-		Use:     "inspect [APP_NAME] [OPTIONS]",
+		Use:     "view [APP_NAME] [OPTIONS]",
 		Short:   "Shows metadata, parameters and a summary of the Compose file for a given application",
-		Example: `$ docker app inspect myapp.dockerapp`,
+		Example: `$ docker app view myapp.dockerapp`,
 		Args:    cli.RequiresMaxArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return runInspect(dockerCli, firstOrEmpty(args), opts)
+			return runView(dockerCli, firstOrEmpty(args), opts)
 		},
 	}
 	opts.parametersOptions.addFlags(cmd.Flags())
@@ -32,14 +32,14 @@ func inspectCmd(dockerCli command.Cli) *cobra.Command {
 	return cmd
 }
 
-func runInspect(dockerCli command.Cli, appname string, opts inspectOptions) error {
+func runView(dockerCli command.Cli, appname string, opts viewOptions) error {
 	defer muteDockerCli(dockerCli)()
-	action, installation, errBuf, err := prepareCustomAction(internal.ActionInspectName, dockerCli, appname, nil, opts.registryOptions, opts.pullOptions, opts.parametersOptions)
+	action, installation, errBuf, err := prepareCustomAction(internal.ActionViewName, dockerCli, appname, nil, opts.registryOptions, opts.pullOptions, opts.parametersOptions)
 	if err != nil {
 		return err
 	}
 	if err := action.Run(&installation.Claim, nil, nil); err != nil {
-		return fmt.Errorf("inspect failed: %s\n%s", err, errBuf)
+		return fmt.Errorf("view failed: %s\n%s", err, errBuf)
 	}
 	return nil
 }

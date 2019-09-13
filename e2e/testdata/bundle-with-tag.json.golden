@@ -37,10 +37,10 @@
 		}
 	},
 	"actions": {
-		"com.docker.app.inspect": {
+		"com.docker.app.render": {
 			"stateless": true
 		},
-		"com.docker.app.render": {
+		"com.docker.app.view": {
 			"stateless": true
 		},
 		"io.cnab.status": {}

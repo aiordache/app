@@ -3,11 +3,11 @@ package main
 import (
 	"os"
 
-	appinspect "github.com/docker/app/internal/inspect"
 	"github.com/docker/app/internal/packager"
+	appview "github.com/docker/app/internal/view"
 )
 
-func inspectAction(instanceName string) error {
+func viewAction(instanceName string) error {
 	app, err := packager.Extract("")
 	// todo: merge additional compose file
 	if err != nil {
@@ -21,5 +21,5 @@ func inspectAction(instanceName string) error {
 	}
 
 	parameters := packager.ExtractCNABParametersValues(packager.ExtractCNABParameterMapping(app.Parameters()), os.Environ())
-	return appinspect.Inspect(os.Stdout, app, parameters, imageMap)
+	return appview.View(os.Stdout, app, parameters, imageMap)
 }
